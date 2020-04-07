@@ -20,5 +20,15 @@ header p {
 
 .link {
     color: white;
-    margin: 20px 0px;
+}
+
+.linkPage {
+    margin: 0;
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
+}
+
+.linkPage img {
+    align-items: center;
 }
