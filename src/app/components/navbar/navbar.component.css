@@ -1,0 +1,19 @@
+@import '~bootstrap/dist/css/bootstrap.css';
+
+* {
+    margin: 0;
+}
+
+header {
+    margin: 10px 0px;
+}
+
+header h4 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+header p {
+    font-size: 12px;
+    font-style: italic;
+}
