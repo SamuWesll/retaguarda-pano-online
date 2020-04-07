@@ -9,7 +9,7 @@
 <div class="flex-column mt-4">
     <ul ngbNav [(activeId)]="route.fragment" class="flex-column">
         <li [ngbNavItem]='link.fragment' *ngFor="let link of links">
-            <a class="link text-center" ngbNavLink routerLink="{link.fragment}" [fragment]="link.fragment">
+            <a class="link text-center" ngbNavLink routerLink="{{ link.fragment }}">
                 {{ link.title }}
             </a>
         </li>

@@ -10,8 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   links = [
-    { title: 'Produtos', fragment: 'produtos' },
-    { title: 'Clientes', fragment: 'clientes' }
+    { title: 'Produtos', fragment: '/produtos' },
+    { title: 'Clientes', fragment: '/clientes' }
   ]
 
   constructor(public route: ActivatedRoute) {  }
