@@ -17,3 +17,8 @@ header p {
     font-size: 12px;
     font-style: italic;
 }
+
+.link {
+    color: white;
+    margin: 20px 0px;
+}

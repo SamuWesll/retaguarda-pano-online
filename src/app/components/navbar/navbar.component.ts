@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModule, NgbNav, NgbNavItem, NgbNavLink } from '@ng-bootstrap/ng-bootstrap'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  links = [
+    { title: 'Produtos', fragment: 'produtos' },
+    { title: 'Clientes', fragment: 'clientes' }
+  ]
+
+  constructor(public route: ActivatedRoute) {  }
 
   ngOnInit(): void {
   }
