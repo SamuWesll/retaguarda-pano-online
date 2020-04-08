@@ -10,6 +10,8 @@ import { ProdutosComponent } from './components/produtos/produtos.component';
 import { ClientesComponent } from './components/clientes/clientes.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PageAdminComponent } from './components/page-admin/page-admin.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     ProdutosComponent,
     ClientesComponent,
     PedidosComponent,
-    DashboardComponent
+    DashboardComponent,
+    PageAdminComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
