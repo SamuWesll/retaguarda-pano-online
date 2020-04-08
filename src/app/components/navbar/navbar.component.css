@@ -2,10 +2,11 @@
 
 * {
     margin: 0;
+    padding: 0px;
 }
 
 header {
-    margin: 10px 0px;
+    margin: 10px 10px;
 }
 
 header h4 {
@@ -31,4 +32,9 @@ header p {
 
 .linkPage img {
     align-items: center;
+}
+
+.is-selecionado {
+    background-color: #FFFF;
+    color: #394B58;
 }
