@@ -1,11 +1,11 @@
-<header class="d-flex justify-content-between">
+<header class="d-flex justify-content-center align-items-center">
     <img class="" src="../../../assets/img/process.png" height="40px" alt="">
-    <div class="col-8">
+    <div [class.navbar-canto]="navbarAjustado" class="col-8">
         <h4>Pano Online</h4>
         <p>Retaguarda</p>
     </div>
 </header>
-<div class="col-11 dropdown-divider"></div>
+<div class="dropdown-divider"></div>
 <div class="flex-column mt-4">
     <ul ngbNav [(activeId)]="route.fragment" class="flex-column">
         <li class="linkPage"   [ngbNavItem]='link.fragment' *ngFor="let link of links">
@@ -16,8 +16,19 @@
                 <div *ngIf="!link.selected">
                     <img src="{{link.img}}" height="40px" alt="">
                 </div>
-                <p class="mt-2 mb-1">{{ link.title }}</p>
+                <p class="mt-2 mb-1" [class.navbar-canto]="navbarAjustado" >{{ link.title }}</p>
             </a>
         </li>
     </ul>
+    <div class="flex-column mt-5">
+        <div class="col-12 d-flex justify-content-center">
+            <p id="ajustar" (click)="ajustarNavbar()" >ajustar</p>
+        </div>
+        <div id="login" class="col-12 mt-3 flex-column justify-content-center align-items-center">
+            <div class="col-12 d-flex justify-content-center">
+               <img class="align-self-center" id="fotoLogin" src="https://thispersondoesnotexist.com/image" alt=""> 
+            </div>
+            <p class="text-center" [class.navbar-canto]="navbarAjustado">login</p>
+        </div>
+    </div>
 </div>

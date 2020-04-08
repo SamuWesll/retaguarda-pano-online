@@ -38,3 +38,21 @@ header p {
     background-color: #FFFF;
     color: #394B58;
 }
+
+#login {
+    cursor: pointer;
+}
+
+#fotoLogin {
+    height: 40px;
+    border-radius: 40px;
+    border: 1px solid #ffff;
+}
+
+#ajustar {
+    cursor: pointer;
+}
+
+.navbar-canto {
+    display: none;
+}

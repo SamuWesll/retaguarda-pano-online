@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { NgbModule, NgbNav, NgbNavItem, NgbNavLink } from '@ng-bootstrap/ng-bootstrap'
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,7 +14,9 @@ export class NavbarComponent implements OnInit {
     { id:2, title: 'Produtos', fragment: '/produtos', imgCheck:"../../../assets/img/inventory_check.png", img: '../../../assets/img/trolley.png', selected:false },
     { id:3, title: 'Clientes', fragment: '/clientes', imgCheck: '../../../assets/img/person_check.png', img: '../../../assets/img/person.png', selected:false },
     { id:4, title: 'Pedidos', fragment: '/pedidos', imgCheck: '../../../assets/img/box_check.png', img: '../../../assets/img/box.png', selected:false }
-  ]
+  ];
+
+  navbarAjustado: boolean = false
 
   constructor(public route: ActivatedRoute) {  }
 
@@ -26,6 +28,15 @@ export class NavbarComponent implements OnInit {
         this.links[i].selected = false;
       }
     }
+  }
+
+  ajustarNavbar() {
+    if(this.navbarAjustado) {
+      this.navbarAjustado = false;
+      return console.log(this.navbarAjustado)
+    }
+    this.navbarAjustado = true;
+    return console.log(this.navbarAjustado)
   }
 
   ngOnInit(): void {
