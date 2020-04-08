@@ -18,7 +18,7 @@
             <th style="width: 10px;">id</th>
             <th style="width: 200px;">titulo</th>
             <th style="width: 400px;">descrição</th>
-            <th style="width: 150px;">imagem</th>
+            <!-- <th style="width: 150px;">imagem</th> -->
             <th style="width: 100px;">valor</th>
             <th style="width: 100px;">valor desc</th>
             <th style="width: 130px;">categoria</th>
@@ -29,11 +29,14 @@
                 <th class="text-center">{{produto.idProduto}}</th>
                 <th>{{produto.tituloProduto}}</th>
                 <th>{{produto.descricao}}</th>
-                <th></th>
+                <!-- <th></th> -->
                 <th class="text-center">{{ mascaraValor(produto.valor) }}</th>
                 <th class="text-center">{{ mascaraValor(produto.valorDesconto) }}</th>
                 <th>{{ produto.categoria }}</th>
-                <th></th>
+                <th class="d-flex justify-content-around">
+                    <img src="../../../assets/img/pencil.png" width="14px" alt="">
+                    <img src="../../../assets/img/pencil.png" width="14px" alt="">
+                </th>
             </tr>
         </tbody>
     </table>
