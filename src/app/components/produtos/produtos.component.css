@@ -1,0 +1,24 @@
+#tituloTabelas th {
+    padding: 5px 30px;
+    background-color: brown;
+    color: #FFF;
+    border: 1px solid #FFF;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+#linhasTabelas {
+    font-size: 12px;
+    background-color: rgb(242, 246, 247);
+}
+
+.page {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 2px 7px;
+}
+
+.selected {
+    background-color: brown;
+    color: #fff;
+}

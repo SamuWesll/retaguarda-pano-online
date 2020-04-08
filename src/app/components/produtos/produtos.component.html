@@ -1,1 +1,45 @@
-<p>produtos works!</p>
+<header class="col-12 mt-3">
+    <h4>Lista de produtos</h4>
+</header>
+<section class="col-12 mt-4">
+    <!-- <div class="col-12 input-group d-flex justify-content-end">
+        <input class="form-control col-3" type="text" #pesquisa>
+        <div class="input-group-append">
+            <button class="btn btn-secondary" type="button" id=""></button>
+        </div>
+    </div> -->
+    <form>
+        <div class="form-group form-inline">
+            Pesquisa: <input class="form-control ml-2" (keyup)="pesquisa(textPesquisa)" type="text" #textPesquisa/>
+        </div>
+    </form>
+    <table class="col-12 mt-4 flex-column justify-content-between mb-5">
+        <tr id="tituloTabelas" class="text-center">
+            <th style="width: 10px;">id</th>
+            <th style="width: 200px;">titulo</th>
+            <th style="width: 400px;">descrição</th>
+            <th style="width: 150px;">imagem</th>
+            <th style="width: 100px;">valor</th>
+            <th style="width: 100px;">valor desc</th>
+            <th style="width: 130px;">categoria</th>
+            <th style="width: 100px;">editar</th>
+        </tr>
+        <tbody>
+            <tr id="linhasTabelas" *ngFor="let produto of listaProdutos | slice: pageSelect.inicio:pageSelect.fim; index as i">
+                <th class="text-center">{{produto.idProduto}}</th>
+                <th>{{produto.tituloProduto}}</th>
+                <th>{{produto.descricao}}</th>
+                <th></th>
+                <th class="text-center">{{ mascaraValor(produto.valor) }}</th>
+                <th class="text-center">{{ mascaraValor(produto.valorDesconto) }}</th>
+                <th>{{ produto.categoria }}</th>
+                <th></th>
+            </tr>
+        </tbody>
+    </table>
+    <div class="col-12 d-flex justify-content-center">
+        <div *ngFor="let page of paginas">
+            <p class="m-3 page" [class.selected]="page.selected" (click)="selecionarPagina(page)">{{ page.page }}</p>
+        </div>
+    </div>
+</section>

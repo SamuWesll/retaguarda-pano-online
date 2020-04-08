@@ -10,7 +10,7 @@ import { PageAdminComponent } from './components/page-admin/page-admin.component
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "/admin",
+    redirectTo: "/",
     pathMatch: "full"
   },
   {

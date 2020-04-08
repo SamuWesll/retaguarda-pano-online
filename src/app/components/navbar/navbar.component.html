@@ -11,10 +11,10 @@
         <li class="linkPage"   [ngbNavItem]='link.fragment' *ngFor="let link of links">
             <a class="link flex-column text-center" [class.is-selecionado]="link.selected"  (click)="isCheck(link.id)" ngbNavLink routerLink="{{ link.fragment }}">
                 <div *ngIf="link.selected">
-                    <img src="{{link.imgCheck}}" height="40px" alt="">
+                    <img src="{{link.imgCheck}}" height="40px" alt="{{ link.title }}">
                 </div>
                 <div *ngIf="!link.selected">
-                    <img src="{{link.img}}" height="40px" alt="">
+                    <img src="{{link.img}}" height="35px" alt="">
                 </div>
                 <p class="mt-2 mb-1" [class.navbar-canto]="navbarAjustado" >{{ link.title }}</p>
             </a>
