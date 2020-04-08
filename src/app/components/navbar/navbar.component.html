@@ -10,7 +10,7 @@
     <ul ngbNav [(activeId)]="route.fragment" class="flex-column">
         <li class="linkPage " [ngbNavItem]='link.fragment' *ngFor="let link of links">
             <a class="link flex-column text-center" ngbNavLink routerLink="{{ link.fragment }}">
-                <img src="{{link.img}}" height="50px" alt="">
+                <img src="{{link.img}}" height="40px" alt="">
                 <p class="mt-3">{{ link.title }}</p>
             </a>
         </li>

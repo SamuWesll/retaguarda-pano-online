@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   links = [
+    { title: 'Dashboard', fragment: '/dashboard', img: '../../../assets/img/dashboard.png' },
     { title: 'Produtos', fragment: '/produtos', img: '../../../assets/img/trolley.png' },
     { title: 'Clientes', fragment: '/clientes', img: '../../../assets/img/person.png'  },
     { title: 'Pedidos', fragment: '/pedidos', img: '../../../assets/img/box.png'  }
