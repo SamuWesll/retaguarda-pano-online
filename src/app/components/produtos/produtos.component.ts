@@ -19,6 +19,7 @@ export class ProdutosComponent implements OnInit {
   // atributos do formulario
   tituloInput = new FormControl();
   categoriaSelect = new FormControl();
+  estoqueInput = new FormControl();
   valorInput = new FormControl();
   valorDescInput = new FormControl();
   imagem: string = "";
@@ -57,7 +58,6 @@ export class ProdutosComponent implements OnInit {
   }
 
   editar(produto) {
-    // console.log(produto)
     this.produtoSelecionado = produto;
     this.tituloInput.setValue(produto.tituloProduto);
     this.categoriaSelect.setValue(produto.categoria);
@@ -65,6 +65,7 @@ export class ProdutosComponent implements OnInit {
     this.valorDescInput.setValue(produto.valorDesconto);
     this.imagem = produto.imagem;
     this.descricaoInput.setValue(produto.descricao)
+    this.estoqueInput.setValue(produto.qtdProduto)
   }
 
   novoProduo() {
@@ -74,7 +75,8 @@ export class ProdutosComponent implements OnInit {
     this.valorInput.setValue('');
     this.valorDescInput.setValue('');
     this.imagem = '';
-    this.descricaoInput.setValue('')
+    this.descricaoInput.setValue('');
+    this.estoqueInput.setValue('')
   }
 
   mascaraValor(valor: number) {
@@ -108,7 +110,6 @@ export class ProdutosComponent implements OnInit {
           this.listaProdutos.push(data[i])
         }
         let qtdPaginas = Math.round((this.listaProdutos.length / 15));
-        console.log(qtdPaginas)
         let inicio = 0;
         let fim = 15;
         let select = true
@@ -128,8 +129,8 @@ export class ProdutosComponent implements OnInit {
     )
   }
 
-  putProduto(prod: Produtos, titulo: string, categoria: number, valor: number, valorDesc: number, descricao: string) {
-    if(titulo == prod['tituloProduto'] && categoria == prod['categoria'] && valor == prod['valor'] && valorDesc == prod['valorDesconto'] && descricao == prod['descricao']) {
+  putProduto(prod: Produtos, titulo: string, categoria: number, valor: number, valorDesc: number, descricao: string, estoque: number) {
+    if(titulo == prod['tituloProduto'] && categoria == prod['categoria'] && valor == prod['valor'] && valorDesc == prod['valorDesconto'] && descricao == prod['descricao'] && estoque == prod['qtdProduto']) {
       return alert ("Nenhum campo alterado!")
     };
     
@@ -138,17 +139,19 @@ export class ProdutosComponent implements OnInit {
     prod['valor'] = valor;
     prod['valorDesconto'] = valorDesc;
     prod['categoria'] = categoria;
+    prod['qtdProduto'] = estoque;
 
     console.log(prod)
     this.produtoHttp.putProduto(prod).subscribe(
       (data) => {
-        console.log(data)
+        if(data['idProduto'] > 0) {
+          alert(`produdo ${data['idProduto']} - ${data['tituloProduto']} editado com sucesso`)
+        }
       }
     )
   };
 
-  createProduto(titulo: string, categoria: number, valor: number, valorDesc: number, descricao: string) {
-    // let novoProduto: Produtos = new Produtos(1,titulo,descricao,"",valor,valorDesc,categoria);
+  createProduto(titulo: string, categoria: number, valor: number, valorDesc: number, descricao: string, estoque: number) {
     let novoProduto = {
       categoria: categoria,
       descricao: descricao,
@@ -156,12 +159,32 @@ export class ProdutosComponent implements OnInit {
       tituloProduto: titulo,
       valor: valor,
       valorDesconto: valorDesc,
+      qtdProduto: estoque,
     };
     this.produtoHttp.createProduto(novoProduto).subscribe(
       data => {
-        console.log(data);
+        if(data['idProduto'] > 0) {
+          this.listaProdutos.push(data)
+          alert(`produdo ${data['idProduto']} - ${data['tituloProduto']} adicionado com sucesso`)
+          this.novoProduo()
+        }
       }
     )
+  }
+
+  createCategoria(categoria: string) {
+    let body = {
+      descricao: categoria,
+    };
+    this.categoriaHttp.createCategoria(body).subscribe(
+      (data) => {
+        if(data['idCategoria'] > 0) {
+          alert (`categoria ${data['descricao']} - id: ${data['idCategoria']} cadastrada com sucesso:`);
+          this.listaCategoria.push(data)
+          this.novaCagoriaInput.setValue('');
+        }
+      }
+    ) 
   }
 
   ngOnInit(): void {

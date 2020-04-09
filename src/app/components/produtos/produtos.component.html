@@ -23,6 +23,7 @@
             <th style="width: 10px;">id</th>
             <th style="width: 200px;">titulo</th>
             <th style="width: 400px;">descrição</th>
+            <th style="width: 100px;">qtd estoque</th>
             <th style="width: 100px;">valor</th>
             <th style="width: 100px;">valor desc</th>
             <th style="width: 130px;">categoria</th>
@@ -33,6 +34,7 @@
                 <th class="text-center">{{produto.idProduto}}</th>
                 <th>{{produto.tituloProduto}}</th>
                 <th>{{produto.descricao}}</th>
+                <th class="text-center">{{produto.qtdProduto}}</th>
                 <th class="text-center">{{ mascaraValor(produto.valor) }}</th>
                 <th class="text-center">{{ mascaraValor(produto.valorDesconto) }}</th>
                 <th class="text-center">{{ getNomeDaCategoria(produto.categoria) }}</th>
@@ -85,17 +87,22 @@
                         </select>
                     </div>
                     <div class="md-form d-flex">
-                        <div class="flex-column col-4">
+                        <div class="flex-column col-3">
                             <label class="col-3 texte-center align-items-center mt-2" for="idValor">Vl: </label>
                             <input mdbInput type="number" id="idValor" class="form-control col-9" name="valor" [formControl]="valorInput"
                         />
                         </div>    
-                        <div class="flex-column col-4">
-                            <label class="col-12 texte-center align-items-center mt-2" for="idValorDesc">Vl Desc: </label>
+                        <div class="flex-column col-3">
+                            <label class="col-12 texte-center align-items-center mt-2" for="idValorDesc">V Desc: </label>
                             <input mdbInput type="number" id="idValorDesc" class="form-control col-9" name="valorDesc" [formControl]="valorDescInput"
                         />
                         </div>
-                        <div class="flex-column col-4">
+                        <div class="flex-column col-3">
+                            <label class="col-12 texte-center align-items-center mt-2" for="est">Est. : </label>
+                            <input mdbInput type="number" id="est" class="form-control col-9" name="estoque" [formControl]="estoqueInput"
+                        />
+                        </div>
+                        <div class="flex-column col-3">
                             <label class="col-12 texte-center align-items-center mt-2" for="idImagem">Imagem: </label>
                             <div class="d-flex justify-content-around">
                                 <div *ngIf="imagem['length'] == 0">
@@ -116,7 +123,7 @@
                 </form>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button type="submit" class="btn btn-outline-success rounded" id="btnEnviarEmail" (click)="putProduto(produtoSelecionado, tituloInput.value, categoriaSelect.value, valorInput.value, valorDescInput.value, descricaoInput.value)">Cadastrar</button>
+                <button type="submit" class="btn btn-outline-success rounded" id="btnEnviarEmail" (click)="putProduto(produtoSelecionado, tituloInput.value, categoriaSelect.value, valorInput.value, valorDescInput.value, descricaoInput.value, estoqueInput.value)">Cadastrar</button>
                 <button type="button" class="btn btn-outline-danger rounded" (click)="modalEditar.hide()">Voltar</button>
             </div>
         </div>
@@ -157,18 +164,23 @@
                                 </option>
                         </select>
                     </div>
-                    <div class="md-form d-flex">
-                        <div class="flex-column col-4">
+                    <div class="md-form d-flex mt-2">
+                        <div class="flex-column col-3">
                             <label class="col-3 texte-center align-items-center mt-2" for="idValor">Vl: </label>
                             <input mdbInput type="number" id="idValor" [minlength]="1" required class="form-control col-9" name="valor" [formControl]="valorInput"
                         />
                         </div>    
-                        <div class="flex-column col-4">
-                            <label class="col-12 texte-center align-items-center mt-2" for="idValorDesc">Vl Desc: </label>
+                        <div class="flex-column col-3">
+                            <label class="col-12 texte-center align-items-center mt-2" for="idValorDesc">V Desc: </label>
                             <input mdbInput type="number" id="idValorDesc" [minlength]="1" required  class="form-control col-9" name="valorDesc" [formControl]="valorDescInput"
                         />
                         </div>
-                        <div class="flex-column col-4">
+                        <div class="flex-column col-3">
+                            <label class="col-12 texte-center align-items-center mt-2" for="est">Est. : </label>
+                            <input mdbInput type="number" id="est" class="form-control col-9" [minlength]="1" required name="estoque" [formControl]="estoqueInput"
+                        />
+                        </div>
+                        <div class="flex-column col-3">
                             <label class="col-12 texte-center align-items-center mt-2" for="idImagem">Imagem: </label>
                             <div class="d-flex justify-content-around">
                                 <div *ngIf="imagem['length'] == 0">
@@ -189,7 +201,7 @@
                 </form>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button type="submit" class="btn btn-outline-success rounded" id="btnEnviarEmail" [disabled]="tituloInput.invalid || categoriaSelect.invalid || valorInput.invalid || valorDescInput.invalid || descricaoInput.invalid" (click)="createProduto(tituloInput.value, categoriaSelect.value, valorInput.value, valorDescInput.value, descricaoInput.value)">Cadastrar</button>
+                <button type="submit" class="btn btn-outline-success rounded" id="btnEnviarEmail" [disabled]="tituloInput.invalid || categoriaSelect.invalid || valorInput.invalid || valorDescInput.invalid || descricaoInput.invalid" (click)="createProduto(tituloInput.value, categoriaSelect.value, valorInput.value, valorDescInput.value, descricaoInput.value, estoqueInput.value)">Cadastrar</button>
                 <button type="button" class="btn btn-outline-danger rounded" (click)="modalNovoProduto.hide()">Voltar</button>
             </div>
         </div>
@@ -222,7 +234,7 @@
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button type="submit" class="btn btn-outline-success rounded" id="btnEnviarEmail" [disabled]="novaCagoriaInput.invalid">Cadastrar</button>
+                <button type="submit" class="btn btn-outline-success rounded" id="btnEnviarEmail" [disabled]="novaCagoriaInput.invalid" (click)="createCategoria(novaCagoriaInput.value)">Cadastrar</button>
                 <button type="button" class="btn btn-outline-danger rounded" (click)="modalNovaCategoria.hide()">Voltar</button>
             </div>
         </div>

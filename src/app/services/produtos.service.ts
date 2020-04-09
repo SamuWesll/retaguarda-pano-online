@@ -32,8 +32,9 @@ export class ProdutosService {
       descricao: produto['descricao'],
       imagem: produto['imagem'],
       valor: (produto['valor'] * 1),
-      valorDesconto: (produto['valorDesconto']),
-      categoria: (produto['categoria'])
+      valorDesconto: produto['valorDesconto'],
+      categoria: produto['categoria'],
+      qtdProduto: produto['qtdProduto'],
     };
     // let atualizandoProd = this.http.put(URLPRODUTO+"/produto?idProduto="+id, JSON.stringify(body))
     let atualizandoProd = this.http.put(URL, body, this.httpOptions).pipe(
