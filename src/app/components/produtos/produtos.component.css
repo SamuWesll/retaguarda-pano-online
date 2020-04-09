@@ -22,3 +22,7 @@
     background-color: brown;
     color: #fff;
 }
+
+.editar {
+    cursor: pointer;
+}

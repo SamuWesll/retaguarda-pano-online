@@ -1,10 +1,10 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, OnInit, PipeTransform, ViewChild } from '@angular/core';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { Produtos } from 'src/app/models/Produtos';
 import { FormControl } from '@angular/forms';
-import { DecimalPipe } from '@angular/common';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { ModalDirective } from 'angular-bootstrap-md';
+import { CategoriaService } from 'src/app/services/categoria.service';
+import { Categoria } from 'src/app/models/Categoria';
 
 let listaProdutos: Produtos[] = [];
 
@@ -14,15 +14,21 @@ let listaProdutos: Produtos[] = [];
   styleUrls: ['./produtos.component.css']
 })
 export class ProdutosComponent implements OnInit {
+  @ViewChild(ModalDirective) modal: ModalDirective;
+
+  // atributos do formulario
+  tituloInput = new FormControl();
 
   listaProdutos: Produtos[] = [];
+  listaCategoria: Categoria[] = [];
+
   paginas: any[] = [];
   pageSelect = {
-    inicio: 15,
-    fim: 30,
+    inicio: 0,
+    fim: 14,
   }
 
-  constructor(public produtoHttp: ProdutosService) {
+  constructor(public produtoHttp: ProdutosService, public categoriaHttp: CategoriaService) {
     
   }
 
@@ -42,8 +48,33 @@ export class ProdutosComponent implements OnInit {
     
   }
 
+  editar(produto) {
+    console.log(produto)
+    this.tituloInput.setValue(produto.tituloProduto);
+  }
+
   mascaraValor(valor: number) {
     return Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor)
+  }
+
+  getNomeDaCategoria(id: number) {
+    let nomeCategoria = "";
+    for(let i = 0; i < this.listaCategoria.length; i++) {
+      if(this.listaCategoria[i]['idCategoria'] == id) {
+        nomeCategoria = this.listaCategoria[i]['descricao']
+      }
+    }
+    return nomeCategoria
+  }
+
+  getCategoria() {
+    this.categoriaHttp.getLista().subscribe(
+      (categorias) => {
+        for(let i = 0; i< categorias['length']; i++) {
+          this.listaCategoria.push(categorias[i]);
+        }
+      }
+    )
   }
 
   getProdutosLista() {
@@ -68,13 +99,13 @@ export class ProdutosComponent implements OnInit {
           fim += 15
           select = false
         }
-        console.log(this.listaProdutos);
-        console.log(this.paginas);
       }
     )
   }
 
   ngOnInit(): void {
+
+    this.getCategoria();
 
     this.getProdutosLista();
 
