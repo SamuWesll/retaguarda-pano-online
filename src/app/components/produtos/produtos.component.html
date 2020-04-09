@@ -2,23 +2,19 @@
     <h4>Lista de produtos</h4>
 </header>
 <section class="col-12 mt-4">
-    <!-- <div class="col-12 input-group d-flex justify-content-end">
-        <input class="form-control col-3" type="text" #pesquisa>
-        <div class="input-group-append">
-            <button class="btn btn-secondary" type="button" id=""></button>
-        </div>
-    </div> -->
     <div class="mt-3 mb-0">
         <div class="d-flex justify-content-between">
             <div class="form-group input-group col-4">
                 Pesquisa: <input class="form-control ml-2" (keyup)="pesquisa(textPesquisa)" type="text" #textPesquisa/>
                 <div class="input-group-append">
-                    <button class="btn btn-dark" type="button" id="pesquisa"></button>
+                    <button class="btn btn-dark" type="button" id="pesquisa">
+                        <img src="../../../assets/img/search.png" height="18px" alt="">
+                    </button>
                 </div>
             </div>
             <div>
-               <button class="btn btn-outline-dark">Cadastra categoria</button> 
-               <button class="btn btn-outline-dark ml-3">Cadastra produto</button> 
+               <button class="btn btn-outline-dark" (click)="modalNovaCategoria.show()">Cadastra categoria</button> 
+               <button class="btn btn-outline-dark ml-3" (click)="modalNovoProduto.show(); novoProduo()">Cadastra produto</button> 
             </div>
         </div>
     </div>
@@ -41,7 +37,6 @@
                 <th class="text-center">{{ mascaraValor(produto.valorDesconto) }}</th>
                 <th class="text-center">{{ getNomeDaCategoria(produto.categoria) }}</th>
                 <th class="d-flex justify-content-around">
-                    <!-- <img src="../../../assets/img/pencil.png" width="14px" alt=""> -->
                     <img class="editar" (click)="editar(produto); modalEditar.show()" src="../../../assets/img/pencil.png" width="14px" alt="">
                 </th>
             </tr>
@@ -74,16 +69,161 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form #formProduto>
-                    <div class="md-form mb-5 d-flex">
+                <form #formProduto="ngForm">
+                    <div class="md-form d-flex">
                         <label class="col-2 texte-center align-items-center mt-2" for="idIitulo">Titulo: </label>
-                        <input mdbInput type="text" id="idIitulo" class="form-control col-9" name="titulo" [formControl]="tituloInput" [(ngModel)]="tituloInput.value">
+                        <input mdbInput type="text" id="idIitulo" class="form-control col-9" name="titulo" [formControl]="tituloInput"
+                        />
+                    </div>
+                    <div class="md-form d-flex mt-3">
+                        <label class="col-3 texte-center align-items-center mt-2" for="idCategoria">Categoria: </label>
+                        <select class="custom-select col-8" name="categoria" id="idCategoria" [formControl]="categoriaSelect">
+                                <option disabled value="">Categorias</option>
+                                <option *ngFor="let categ of listaCategoria" [ngValue]="categ.idCategoria">
+                                    {{ categ.descricao }}
+                                </option>
+                        </select>
+                    </div>
+                    <div class="md-form d-flex">
+                        <div class="flex-column col-4">
+                            <label class="col-3 texte-center align-items-center mt-2" for="idValor">Vl: </label>
+                            <input mdbInput type="number" id="idValor" class="form-control col-9" name="valor" [formControl]="valorInput"
+                        />
+                        </div>    
+                        <div class="flex-column col-4">
+                            <label class="col-12 texte-center align-items-center mt-2" for="idValorDesc">Vl Desc: </label>
+                            <input mdbInput type="number" id="idValorDesc" class="form-control col-9" name="valorDesc" [formControl]="valorDescInput"
+                        />
+                        </div>
+                        <div class="flex-column col-4">
+                            <label class="col-12 texte-center align-items-center mt-2" for="idImagem">Imagem: </label>
+                            <div class="d-flex justify-content-around">
+                                <div *ngIf="imagem['length'] == 0">
+                                    <img src="../../../assets/img/close.png" alt="">
+                                </div>
+                                <div *ngIf="imagem['length'] > 0">
+                                    <img src="../../../assets/img/tick.png" alt="foto carregada">
+                                </div>
+                                <img src="../../../assets/img/update.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md-form mt-2">
+                        <label class="col-3 texte-center align-items-center mt-2" for="iddescricao">Descrição: </label>
+                        <!-- <input mdbInput type="text" id="iddescricao" class="form-control col-9" name="titulo" [formControl]="Input"/> -->
+                        <textarea class="form-control col-11 ml-2" name="descricao" id="iddescricao" cols="10" rows="10" [formControl]="descricaoInput"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button type="submit" class="btn btn-outline-success rounded" id="btnEnviarEmail">Enviar</button>
+                <button type="submit" class="btn btn-outline-success rounded" id="btnEnviarEmail" (click)="putProduto(produtoSelecionado, tituloInput.value, categoriaSelect.value, valorInput.value, valorDescInput.value, descricaoInput.value)">Cadastrar</button>
                 <button type="button" class="btn btn-outline-danger rounded" (click)="modalEditar.hide()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div
+  mdbModal
+  #modalNovoProduto="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  style="overflow-y: auto"
+>
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title text-white w-100">Cadastra Produto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalNovoProduto.hide()">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #formProduto="ngForm">
+                    <div class="md-form d-flex">
+                        <label class="col-2 texte-center align-items-center mt-2" for="idIitulo">Titulo: </label>
+                        <input mdbInput type="text" id="idIitulo" class="form-control col-9" name="titulo" [formControl]="tituloInput" [maxlength]="40" [minlength]="5" required/>
+                    </div>
+                    <div class="md-form d-flex mt-3">
+                        <label class="col-3 texte-center align-items-center mt-2" for="idCategoria">Categoria: </label>
+                        <select class="custom-select col-8" name="categoria" id="idCategoria" required [formControl]="categoriaSelect">
+                                <option disabled value="">Categorias</option>
+                                <option *ngFor="let categ of listaCategoria" [ngValue]="categ.idCategoria">
+                                    {{ categ.descricao }}
+                                </option>
+                        </select>
+                    </div>
+                    <div class="md-form d-flex">
+                        <div class="flex-column col-4">
+                            <label class="col-3 texte-center align-items-center mt-2" for="idValor">Vl: </label>
+                            <input mdbInput type="number" id="idValor" [minlength]="1" required class="form-control col-9" name="valor" [formControl]="valorInput"
+                        />
+                        </div>    
+                        <div class="flex-column col-4">
+                            <label class="col-12 texte-center align-items-center mt-2" for="idValorDesc">Vl Desc: </label>
+                            <input mdbInput type="number" id="idValorDesc" [minlength]="1" required  class="form-control col-9" name="valorDesc" [formControl]="valorDescInput"
+                        />
+                        </div>
+                        <div class="flex-column col-4">
+                            <label class="col-12 texte-center align-items-center mt-2" for="idImagem">Imagem: </label>
+                            <div class="d-flex justify-content-around">
+                                <div *ngIf="imagem['length'] == 0">
+                                    <img src="../../../assets/img/close.png" alt="">
+                                </div>
+                                <div *ngIf="imagem['length'] > 0">
+                                    <img src="../../../assets/img/tick.png" alt="foto carregada">
+                                </div>
+                                <img src="../../../assets/img/update.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md-form mt-2">
+                        <label class="col-3 texte-center align-items-center mt-2" for="iddescricao">Descrição: </label>
+                        <!-- <input mdbInput type="text" id="iddescricao" class="form-control col-9" name="titulo" [formControl]="Input"/> -->
+                        <textarea class="form-control col-11 ml-2" name="descricao" id="iddescricao" cols="10" rows="10" [formControl]="descricaoInput" [maxlength]="100" [minlength]="5" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-success rounded" id="btnEnviarEmail" [disabled]="tituloInput.invalid || categoriaSelect.invalid || valorInput.invalid || valorDescInput.invalid || descricaoInput.invalid" (click)="createProduto(tituloInput.value, categoriaSelect.value, valorInput.value, valorDescInput.value, descricaoInput.value)">Cadastrar</button>
+                <button type="button" class="btn btn-outline-danger rounded" (click)="modalNovoProduto.hide()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div
+  mdbModal
+  #modalNovaCategoria="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  style="overflow-y: auto"
+>
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title text-white w-100">Cadastra Produto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalNovaCategoria.hide()">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="md-form d-flex">
+                    <label class="col-3 texte-center align-items-center mt-2" for="idCategoria">Descrição: </label>
+                    <input mdbInput type="text" id="idCategoria" class="form-control col-7" name="titulo" [formControl]="novaCagoriaInput" [maxlength]="40" [minlength]="5" required/>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-success rounded" id="btnEnviarEmail" [disabled]="novaCagoriaInput.invalid">Cadastrar</button>
+                <button type="button" class="btn btn-outline-danger rounded" (click)="modalNovaCategoria.hide()">Voltar</button>
             </div>
         </div>
     </div>

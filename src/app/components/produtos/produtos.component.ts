@@ -18,6 +18,14 @@ export class ProdutosComponent implements OnInit {
 
   // atributos do formulario
   tituloInput = new FormControl();
+  categoriaSelect = new FormControl();
+  valorInput = new FormControl();
+  valorDescInput = new FormControl();
+  imagem: string = "";
+  descricaoInput = new FormControl();
+  novaCagoriaInput = new FormControl();
+
+  produtoSelecionado: Produtos;
 
   listaProdutos: Produtos[] = [];
   listaCategoria: Categoria[] = [];
@@ -49,8 +57,24 @@ export class ProdutosComponent implements OnInit {
   }
 
   editar(produto) {
-    console.log(produto)
+    // console.log(produto)
+    this.produtoSelecionado = produto;
     this.tituloInput.setValue(produto.tituloProduto);
+    this.categoriaSelect.setValue(produto.categoria);
+    this.valorInput.setValue(produto.valor);
+    this.valorDescInput.setValue(produto.valorDesconto);
+    this.imagem = produto.imagem;
+    this.descricaoInput.setValue(produto.descricao)
+  }
+
+  novoProduo() {
+    this.produtoSelecionado = "";
+    this.tituloInput.setValue("");
+    this.categoriaSelect.setValue('');
+    this.valorInput.setValue('');
+    this.valorDescInput.setValue('');
+    this.imagem = '';
+    this.descricaoInput.setValue('')
   }
 
   mascaraValor(valor: number) {
@@ -83,7 +107,8 @@ export class ProdutosComponent implements OnInit {
         for(let i = 0; i < data['length']; i++) {
           this.listaProdutos.push(data[i])
         }
-        let qtdPaginas = (this.listaProdutos.length / 15).toPrecision().length;
+        let qtdPaginas = Math.round((this.listaProdutos.length / 15));
+        console.log(qtdPaginas)
         let inicio = 0;
         let fim = 15;
         let select = true
@@ -99,6 +124,42 @@ export class ProdutosComponent implements OnInit {
           fim += 15
           select = false
         }
+      }
+    )
+  }
+
+  putProduto(prod: Produtos, titulo: string, categoria: number, valor: number, valorDesc: number, descricao: string) {
+    if(titulo == prod['tituloProduto'] && categoria == prod['categoria'] && valor == prod['valor'] && valorDesc == prod['valorDesconto'] && descricao == prod['descricao']) {
+      return alert ("Nenhum campo alterado!")
+    };
+    
+    prod['tituloProduto'] = titulo;
+    prod['descricao'] = descricao;
+    prod['valor'] = valor;
+    prod['valorDesconto'] = valorDesc;
+    prod['categoria'] = categoria;
+
+    console.log(prod)
+    this.produtoHttp.putProduto(prod).subscribe(
+      (data) => {
+        console.log(data)
+      }
+    )
+  };
+
+  createProduto(titulo: string, categoria: number, valor: number, valorDesc: number, descricao: string) {
+    // let novoProduto: Produtos = new Produtos(1,titulo,descricao,"",valor,valorDesc,categoria);
+    let novoProduto = {
+      categoria: categoria,
+      descricao: descricao,
+      imagem: "",
+      tituloProduto: titulo,
+      valor: valor,
+      valorDesconto: valorDesc,
+    };
+    this.produtoHttp.createProduto(novoProduto).subscribe(
+      data => {
+        console.log(data);
       }
     )
   }

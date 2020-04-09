@@ -26,3 +26,7 @@
 .editar {
     cursor: pointer;
 }
+
+textarea {
+    height: 60px;
+}
