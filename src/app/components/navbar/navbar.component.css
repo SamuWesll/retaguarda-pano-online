@@ -56,3 +56,7 @@ header p {
 .navbar-canto {
     display: none;
 }
+
+.ajustarNavbar {
+    cursor: pointer;
+}

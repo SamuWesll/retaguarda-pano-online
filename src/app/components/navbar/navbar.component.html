@@ -8,6 +8,12 @@
 <div class="dropdown-divider"></div>
 <div class="flex-column mt-4">
     <ul ngbNav [(activeId)]="route.fragment" class="flex-column">
+        <div id="login" class="col-12 mt-3 flex-column justify-content-center align-items-center mb-2">
+            <div class="col-12 d-flex justify-content-center">
+               <img class="align-self-center" id="fotoLogin" src="https://thispersondoesnotexist.com/image" alt=""> 
+            </div>
+            <p class="text-center" [class.navbar-canto]="navbarAjustado">login</p>
+        </div>
         <li class="linkPage"   [ngbNavItem]='link.fragment' *ngFor="let link of links">
             <a class="link flex-column text-center" [class.is-selecionado]="link.selected"  (click)="isCheck(link.id)" ngbNavLink routerLink="{{ link.fragment }}">
                 <div *ngIf="link.selected">
@@ -22,13 +28,16 @@
     </ul>
     <div class="flex-column mt-5 align-self-end">
         <div class="col-12 d-flex justify-content-center">
-            <p id="ajustar" (click)="ajustarNavbar()" >ajustar</p>
-        </div>
-        <div id="login" class="col-12 mt-3 flex-column justify-content-center align-items-center">
-            <div class="col-12 d-flex justify-content-center">
-               <img class="align-self-center" id="fotoLogin" src="https://thispersondoesnotexist.com/image" alt=""> 
+            <!-- <p id="ajustar" (click)="ajustarNavbar()" >ajustar</p> -->
+            <div *ngIf="navbarAjustado">
+                <!-- <p id="ajustar" (click)="ajustarNavbar()" >ajustar</p> -->
+                <img class="ajustarNavbar" src="../../../assets/img/next.png" (click)="ajustarNavbar()" alt="">
             </div>
-            <p class="text-center" [class.navbar-canto]="navbarAjustado">login</p>
+            <div *ngIf="!navbarAjustado">
+                <!-- <p id="ajustar" (click)="ajustarNavbar()" >ajustar</p> -->
+                <img class="ajustarNavbar" src="../../../assets/img/back.png" (click)="ajustarNavbar()" alt="">
+            </div>
         </div>
+        
     </div>
 </div>

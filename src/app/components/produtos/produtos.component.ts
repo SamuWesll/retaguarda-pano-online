@@ -1,10 +1,11 @@
-import { Component, OnInit, PipeTransform, ViewChild } from '@angular/core';
+import { Component, OnInit, PipeTransform, ViewChild, ElementRef } from '@angular/core';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { Produtos } from 'src/app/models/Produtos';
 import { FormControl } from '@angular/forms';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/Categoria';
+import { UploadService } from 'src/app/services/upload.service';
 
 let listaProdutos: Produtos[] = [];
 
@@ -15,6 +16,7 @@ let listaProdutos: Produtos[] = [];
 })
 export class ProdutosComponent implements OnInit {
   @ViewChild(ModalDirective) modal: ModalDirective;
+  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;files  = [];
 
   // atributos do formulario
   tituloInput = new FormControl();
@@ -25,6 +27,8 @@ export class ProdutosComponent implements OnInit {
   imagem: string = "";
   descricaoInput = new FormControl();
   novaCagoriaInput = new FormControl();
+
+  formData = new FormData()
 
   produtoSelecionado: Produtos;
 
@@ -37,7 +41,7 @@ export class ProdutosComponent implements OnInit {
     fim: 14,
   }
 
-  constructor(public produtoHttp: ProdutosService, public categoriaHttp: CategoriaService) {
+  constructor(public produtoHttp: ProdutosService, public categoriaHttp: CategoriaService, private uploadService: UploadService) {
     
   }
 
