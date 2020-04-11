@@ -5,7 +5,7 @@
     <div class="mt-3 mb-0">
         <div class="d-flex justify-content-between">
             <div class="form-group input-group col-4">
-                Pesquisa: <input class="form-control ml-2" (keyup)="pesquisa(textPesquisa)" type="text" #textPesquisa/>
+                Pesquisa: <input class="form-control ml-2" (keyup)="pesquisa(textPesquisa)" ng-model="pesquisaInput" type="text" #textPesquisa/>
                 <div class="input-group-append">
                     <button class="btn btn-dark" type="button" id="pesquisa">
                         <img src="../../../assets/img/search.png" height="18px" alt="">
@@ -23,7 +23,7 @@
             <th style="width: 10px;">id</th>
             <th style="width: 200px;">titulo</th>
             <th style="width: 400px;">descrição</th>
-            <th style="width: 100px;">qtd estoque</th>
+            <th style="width: 130px;">qtd estoque</th>
             <th style="width: 100px;">valor</th>
             <th style="width: 100px;">valor desc</th>
             <th style="width: 130px;">categoria</th>
@@ -89,17 +89,17 @@
                     <div class="md-form d-flex">
                         <div class="flex-column col-3">
                             <label class="col-3 texte-center align-items-center mt-2" for="idValor">Vl: </label>
-                            <input mdbInput type="number" id="idValor" class="form-control col-9" name="valor" [formControl]="valorInput"
+                            <input mdbInput type="number" id="idValor" class="form-control col-11" name="valor" [formControl]="valorInput"
                         />
                         </div>    
                         <div class="flex-column col-3">
                             <label class="col-12 texte-center align-items-center mt-2" for="idValorDesc">V Desc: </label>
-                            <input mdbInput type="number" id="idValorDesc" class="form-control col-9" name="valorDesc" [formControl]="valorDescInput"
+                            <input mdbInput type="number" id="idValorDesc" class="form-control col-11" name="valorDesc" [formControl]="valorDescInput"
                         />
                         </div>
                         <div class="flex-column col-3">
                             <label class="col-12 texte-center align-items-center mt-2" for="est">Est. : </label>
-                            <input mdbInput type="number" id="est" class="form-control col-9" name="estoque" [formControl]="estoqueInput"
+                            <input mdbInput type="number" id="est" class="form-control col-11" name="estoque" [formControl]="estoqueInput"
                         />
                         </div>
                         <div class="flex-column col-3">

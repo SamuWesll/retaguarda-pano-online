@@ -54,8 +54,16 @@ export class ProdutosComponent implements OnInit {
   }
 
   pesquisa(text: string) {
-    
-  }
+    // text = text.toLocaleLowerCase();
+    text = text.toLowerCase();
+
+    this.listaProdutos.forEach(prod => {
+      const prodLC = prod['tituloProduto'].toLocaleLowerCase();
+      if(prodLC.indexOf(text)) {
+        console.log(prod)
+      }
+    })
+  };
 
   editar(produto) {
     this.produtoSelecionado = produto;
@@ -192,6 +200,8 @@ export class ProdutosComponent implements OnInit {
     this.getCategoria();
 
     this.getProdutosLista();
+
+    console.log()
 
   }
 

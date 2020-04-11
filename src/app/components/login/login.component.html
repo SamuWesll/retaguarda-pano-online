@@ -1,1 +1,21 @@
-<button type="button" routerLink="page" >Login</button>
+<section class="d-flex justify-content-center align-items-center">
+    <div id="card" class="col-3">
+        <header class="mt-2 text-center">
+            <h5>Login</h5>
+            <div class="dropdown-divider"></div>
+        </header>
+        <div class="flex-column justify-content-center mt-1">
+            <div>
+                <label class="mt-2" for="login">Login: </label>
+                <input class="col-6" type="text" id="login" class="form-control" mdbInput [formControl]="loginInput" placeholder="Digite login administrativo"/>
+            </div>
+            <div>
+                <label class="mt-2" for="senha">Senha: </label>
+                <input class="col-6" type="password" id="senha" class="form-control" mdbInput [formControl]="senhaInput" placeholder="Digite sua senha"/>
+            </div>
+            <div class="col-12 d-flex justify-content-center mt-3 mb-2">
+                <button class="btn btn-dark col-7 m-2" (click)="realizandoLogin()">Login</button>
+            </div>
+        </div>
+    </div>
+</section>

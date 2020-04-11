@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageAdminComponent implements OnInit {
 
-  constructor() { }
+  login = {
+    logado: false
+  }
+
+  constructor() {
+
+  }
 
   ngOnInit(): void {
+  }
+
+  reciverRealizandoLogin(alterarLogin) {
+    this.login = alterarLogin;
+    console.log('Login do filho', alterarLogin);
   }
 
 }

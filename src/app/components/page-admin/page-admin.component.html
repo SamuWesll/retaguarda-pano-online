@@ -1,4 +1,7 @@
-<div class="d-flex">
+<div *ngIf="login.logado" class="d-flex">
     <app-navbar id="menu" class="pr-0 pl-0 d-block"></app-navbar>
     <router-outlet></router-outlet>
+</div>
+<div *ngIf="!login.logado">
+    <app-login [receberLogin]="login" (alterarLogin)="reciverRealizandoLogin($event)" ></app-login>
 </div>

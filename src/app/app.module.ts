@@ -16,6 +16,7 @@ import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PageAdminComponent } from './components/page-admin/page-admin.component';
 import { LoginComponent } from './components/login/login.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -37,9 +38,10 @@ import { LoginComponent } from './components/login/login.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    RouterModule.forRoot([])
   ],
   providers: [],
-  bootstrap: [AppComponent, ProdutosComponent, NavbarComponent, PageAdminComponent],
+  bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class AppModule { }

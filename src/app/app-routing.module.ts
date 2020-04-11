@@ -5,17 +5,15 @@ import { ClientesComponent } from './components/clientes/clientes.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PageAdminComponent } from './components/page-admin/page-admin.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 const routes: Routes = [
   {
     path: "",
+    pathMatch: "full",
     redirectTo: "/",
-    pathMatch: "full"
-  },
-  {
-    path: "page",
-    component: PageAdminComponent,
+    // component: PageAdminComponent
   },
   {
     path: "produtos",
