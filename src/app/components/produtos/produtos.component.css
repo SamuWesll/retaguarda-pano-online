@@ -15,12 +15,16 @@
 .page {
     cursor: pointer;
     font-weight: bold;
-    padding: 2px 7px;
+    padding: 2px 10px;
+    border: 1px solid rgb(218, 207, 207);
+    margin: 0px;
 }
 
 .selected {
     background-color: brown;
     color: #fff;
+    border: none;
+    padding: 3px 11px;
 }
 
 .editar {

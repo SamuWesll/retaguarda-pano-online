@@ -46,7 +46,7 @@
     </table>
     <div class="col-12 d-flex justify-content-center">
         <div *ngFor="let page of paginas">
-            <p class="m-3 page" [class.selected]="page.selected" (click)="selecionarPagina(page)">{{ page.page }}</p>
+            <p class="page" [class.selected]="page.selected" (click)="selecionarPagina(page)">{{ page.page }}</p>
         </div>
     </div>
 </section>
