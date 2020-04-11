@@ -33,6 +33,7 @@ export class ProdutosComponent implements OnInit {
   produtoSelecionado: Produtos;
 
   listaProdutos: Produtos[] = [];
+  listaTodosProdutos: Produtos[] = [];
   listaCategoria: Categoria[] = [];
 
   paginas: any[] = [];
@@ -58,15 +59,33 @@ export class ProdutosComponent implements OnInit {
   }
 
   pesquisa(text: string) {
-    // text = text.toLocaleLowerCase();
-    text = text.toLowerCase();
+    let prodArray: Produtos[] = [];
 
-    this.listaProdutos.forEach(prod => {
-      const prodLC = prod['tituloProduto'].toLocaleLowerCase();
-      if(prodLC.indexOf(text)) {
-        console.log(prod)
+    this.listaTodosProdutos.forEach(prod => {
+      let nomeCategoria: string = this.getNomeDaCategoria(prod['categoria'])
+      let idString = prod['idProduto'] + "";
+      if(nomeCategoria.toLowerCase().includes(text.toLowerCase()) || prod['tituloProduto'].toLowerCase().includes(text.toLowerCase()) || idString.toLowerCase().includes(text.toLowerCase()) ) {
+        prodArray.push(prod);
       }
     })
+    this.listaProdutos = prodArray;
+    let qtdPaginas = Math.round((this.listaProdutos.length / 15));
+        let inicio = 0;
+        let fim = 15;
+        let select = true
+        this.paginas = [];
+        for(let i = 1; i <= qtdPaginas; i++) {
+          let body = {
+            page: i,
+            inicio: inicio,
+            fim: fim,
+            selected: select,
+          }
+          this.paginas.push(body);
+          inicio = fim;
+          fim += 15
+          select = false
+        }
   };
 
   editar(produto) {
@@ -119,12 +138,14 @@ export class ProdutosComponent implements OnInit {
     this.produtoHttp.getLista().subscribe(
       (data) => {
         for(let i = 0; i < data['length']; i++) {
-          this.listaProdutos.push(data[i])
+          this.listaProdutos.push(data[i]);
+          this.listaTodosProdutos.push(data[i]);
         }
         let qtdPaginas = Math.round((this.listaProdutos.length / 15));
         let inicio = 0;
         let fim = 15;
         let select = true
+        this.paginas = [];
         for(let i = 1; i <= qtdPaginas; i++) {
           let body = {
             page: i,
@@ -199,13 +220,15 @@ export class ProdutosComponent implements OnInit {
     ) 
   }
 
+  palavra = "dasdaHHaas"
+
   ngOnInit(): void {
 
     this.getCategoria();
 
     this.getProdutosLista();
 
-    console.log()
+    console.log(this.listaProdutos)
 
   }
 

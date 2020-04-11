@@ -5,7 +5,7 @@
     <div class="mt-3 mb-0">
         <div class="d-flex justify-content-between">
             <div class="form-group input-group col-4">
-                Pesquisa: <input class="form-control ml-2" (keyup)="pesquisa(textPesquisa)" ng-model="pesquisaInput" type="text" #textPesquisa/>
+                Pesquisa: <input class="form-control ml-2" (keyup)="pesquisa(textPesquisa.value)" ng-model="pesquisaInput" type="text" #textPesquisa/>
                 <div class="input-group-append">
                     <button class="btn btn-dark" type="button" id="pesquisa">
                         <img src="../../../assets/img/search.png" height="18px" alt="">
@@ -30,7 +30,7 @@
             <th style="width: 100px;">editar</th>
         </tr>
         <tbody>
-            <tr id="linhasTabelas" *ngFor="let produto of listaProdutos | slice: pageSelect.inicio:pageSelect.fim; index as i">
+            <tr scope="row" id="linhasTabelas" *ngFor="let produto of listaProdutos | slice: pageSelect.inicio:pageSelect.fim; index as i">
                 <th class="text-center">{{produto.idProduto}}</th>
                 <th>{{produto.tituloProduto}}</th>
                 <th>{{produto.descricao}}</th>
@@ -38,7 +38,7 @@
                 <th class="text-center">{{ mascaraValor(produto.valor) }}</th>
                 <th class="text-center">{{ mascaraValor(produto.valorDesconto) }}</th>
                 <th class="text-center">{{ getNomeDaCategoria(produto.categoria) }}</th>
-                <th class="d-flex justify-content-around">
+                <th class="d-flex justify-content-around align-items-center">
                     <img class="editar" (click)="editar(produto); modalEditar.show()" src="../../../assets/img/pencil.png" width="14px" alt="">
                 </th>
             </tr>
