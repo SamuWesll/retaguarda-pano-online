@@ -1,4 +1,4 @@
-import { Component, OnInit, PipeTransform, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { Produtos } from 'src/app/models/Produtos';
 import { FormControl } from '@angular/forms';
@@ -16,7 +16,6 @@ let listaProdutos: Produtos[] = [];
 })
 export class ProdutosComponent implements OnInit {
   @ViewChild(ModalDirective) modal: ModalDirective;
-  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;files  = [];
 
   // atributos do formulario
   tituloInput = new FormControl();
@@ -28,7 +27,7 @@ export class ProdutosComponent implements OnInit {
   descricaoInput = new FormControl();
   novaCagoriaInput = new FormControl();
 
-  formData = new FormData()
+  selectedFile: File = null;
 
   produtoSelecionado: Produtos;
 
@@ -172,6 +171,7 @@ export class ProdutosComponent implements OnInit {
     prod['valor'] = valor;
     prod['valorDesconto'] = valorDesc;
     prod['categoria'] = categoria;
+    prod['imagem'] = this.imagem;
     prod['qtdProduto'] = estoque;
 
     console.log(prod)
@@ -188,7 +188,7 @@ export class ProdutosComponent implements OnInit {
     let novoProduto = {
       categoria: categoria,
       descricao: descricao,
-      imagem: "",
+      imagem: this.imagem,
       tituloProduto: titulo,
       valor: valor,
       valorDesconto: valorDesc,
@@ -220,15 +220,23 @@ export class ProdutosComponent implements OnInit {
     ) 
   }
 
-  palavra = "dasdaHHaas"
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+  }
+
+  onUpload() {
+    this.uploadService.onUpload(this.selectedFile).subscribe(
+      () => {
+        this.imagem = `http://localhost:4200/../../../assets/img/produtos/${this.selectedFile.name}`
+      }
+    )
+  }
 
   ngOnInit(): void {
 
     this.getCategoria();
 
     this.getProdutosLista();
-
-    console.log(this.listaProdutos)
 
   }
 

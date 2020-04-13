@@ -11,11 +11,10 @@ export class UploadService {
 
   constructor(private httpClient: HttpClient) { }
 
-  upload(formData) {
-    return this.httpClient.post<any>(this.SERVER_URL, formData, {
-      reportProgress: true,
-      observe: 'events'
-    })
+  onUpload(formData: File) {
+    const FD = new FormData();
+    FD.append('foto', formData)
+    return this.httpClient.post('http://localhost:8080/meupanoonline/fotos', FD)
   }
 
-}
+} 
