@@ -115,11 +115,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="md-form mt-3 d-flex justify-content-center">
-                        <input type="file" (change)="onFileSelected($event)">
-                        <button type="button" (click)="onUpload()">Upload</button>
-                        <!-- <img src="../../../assets/img/update.png" alt=""> -->
+                    <div class="input-group mt-4 ml-2">
+                        <div class="custom-file col-9">
+                          <input type="file" (change)="onFileSelected($event)" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                          <label class="custom-file-label" for="inputGroupFile04">Escolher arquivo</label>
+                        </div>
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="button" (click)="onUpload()" id="inputGroupFileAddon04">Adicionar</button>
+                        </div>
                     </div>
+
                     <div class="md-form mt-2">
                         <label class="col-3 texte-center align-items-center mt-2" for="iddescricao">Descrição: </label>
                         <!-- <input mdbInput type="text" id="iddescricao" class="form-control col-9" name="titulo" [formControl]="Input"/> -->
@@ -194,14 +199,17 @@
                                 <div *ngIf="imagem['length'] > 0">
                                     <img src="../../../assets/img/tick.png" alt="foto carregada">
                                 </div>
-                                <!-- <img src="../../../assets/img/update.png" alt=""> -->
                             </div>
                         </div>
                     </div>
-                    <div class="md-form mt-4 d-flex justify-content-center">
-                        <input type="file" (change)="onFileSelected($event)">
-                        <button type="button" (click)="onUpload()">Upload</button>
-                        <!-- <img src="../../../assets/img/update.png" alt=""> -->
+                    <div class="input-group mt-4 ml-2">
+                        <div class="custom-file col-9">
+                          <input type="file" (change)="onFileSelected($event)" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                          <label class="custom-file-label" for="inputGroupFile04">Escolher arquivo</label>
+                        </div>
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="button" (click)="onUpload()" id="inputGroupFileAddon04">Adicionar</button>
+                        </div>
                     </div>
                     <div class="md-form mt-2">
                         <label class="col-3 texte-center align-items-center mt-2" for="iddescricao">Descrição: </label>
