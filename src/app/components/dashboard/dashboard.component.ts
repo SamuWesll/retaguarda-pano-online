@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDate, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { PedidosService } from 'src/app/services/pedidos.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,16 +17,26 @@ export class DashboardComponent implements OnInit {
 
   faCalendar = faCalendar;
 
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 0);
+  pedidos: any = [];
+  
+  venda: number = 0;
+  qtdProdutos: number = 0;
+
+  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private pedidoService: PedidosService) {
+    this.fromDate = calendar.getNext(calendar.getToday(), 'd', -5);
+    this.toDate = calendar.getToday();
+    // this.fromDate = calendar.getToday();
+    // this.toDate = calendar.getNext(calendar.getToday(), 'd', 0);
   }
 
+  // Inicio dos metodos do calendario
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
+      this.getPedidoPeriodo(this.dataString(this.fromDate), this.dataString(this.toDate))
     } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
       this.toDate = date;
+      this.getPedidoPeriodo(this.dataString(this.fromDate), this.dataString(this.toDate))
     } else {
       this.toDate = null;
       this.fromDate = date;
@@ -48,8 +59,64 @@ export class DashboardComponent implements OnInit {
     const parsed = this.formatter.parse(input);
     return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
   }
+  // Fim dos metodos do calendario
+
+  getPedidoPeriodo(inicio: string, fim: string) {
+    // let inicio: string = "2020-04-01"
+    // let fim: string = "2020-04-09"
+
+    this.pedidoService.getPedidosPeriodo(inicio, fim).subscribe(
+      data => {
+        if(data[0].idPedido) {
+          this.pedidos = data;
+          this.venda = 0;
+          this.qtdProdutos = 0;
+          this.pedidos.forEach(pedido => {
+             this.venda += pedido.totalCompra + pedido.valorFrete
+             pedido['itensPedido'].forEach(itensProd => {
+                this.qtdProdutos += itensProd.qtdProduto;
+             })
+          });
+          console.log(this.pedidos)
+          console.log(this.qtdProdutos)
+        }
+      },
+      ERROR => {
+        if(ERROR['error'] == "Não existem pedidos cadastrados nesse período") {
+          this.pedidos = [];
+          this.venda = 0;
+          return alert(ERROR['error'])
+        }
+      }
+    )
+  };
+
+  mascaraValor(valor: number) {
+    return Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor)
+  };
+
+  dataString(date: NgbDate): string {
+
+    function menorZero(n) {
+      if(n < 10) {
+        return "0" + n;
+      }
+      return n + "";
+    };
+
+    let ano = date.year + "";
+    let mes = menorZero(date.month);
+    let dia = menorZero(date.day);
+    
+    return ano + "-" + mes + "-" + dia;
+  }
+
+  retorno() {
+    console.log("funcionou")
+  }
 
   ngOnInit(): void {
+    this.getPedidoPeriodo(this.dataString(this.fromDate), this.dataString(this.toDate));
   }
 
 }
