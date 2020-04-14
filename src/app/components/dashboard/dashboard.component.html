@@ -64,41 +64,46 @@
                 </div>
             </form>      
         </div>
-        <div class="col-4 d-flex mt-3">
-          <div class="resultados col-6 flex-column">
-            <div class="text-center">
-              <h4>PEDIDOS</h4>
+        <div class="col-12 d-flex">
+          <div class="col-4 d-flex flex-column mt-3">
+            <div class="d-flex">
+              <div class="resultados col-6 flex-column">
+                <div class="text-center">
+                  <h4>PEDIDOS</h4>
+                </div>
+                <div class="mt-3 d-flex justify-content-center">
+                  <h5>{{ pedidos.length }}</h5>
+                </div>
+              </div>
+              <div class="resultados flex-column col-6">
+                <div class="text-center">
+                  <h4>VENDA</h4>
+                </div>
+                <div class="mt-3 d-flex justify-content-center">
+                  <h5>{{ mascaraValor(venda) }}</h5>
+                </div>
+              </div>
             </div>
-            <div class="mt-3 d-flex justify-content-center">
-              <h5>{{ pedidos.length }}</h5>
+            <div class="d-flex mt-2">
+              <div class="resultados flex-column col-6">
+                <div class="text-center">
+                  <h4>QTD PRODUTOS</h4>
+                </div>
+                <div class="mt-3 d-flex justify-content-center">
+                  <h5>{{ qtdProdutos }}</h5>
+                </div>
+              </div>
+              <div class="resultados flex-column col-6">
+                <div class="text-center">
+                  <h4>TICKET MÉDIO</h4>
+                </div>
+                <div class="mt-3 d-flex justify-content-center">
+                  <h5>{{ mascaraValor(venda / pedidos.length) }}</h5>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="resultados flex-column col-6">
-            <div class="text-center">
-              <h4>VENDA</h4>
-            </div>
-            <div class="mt-3 d-flex justify-content-center">
-              <h5>{{ mascaraValor(venda) }}</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-4 d-flex mt-2">
-          <div class="resultados flex-column col-6">
-            <div class="text-center">
-              <h4>QTD PRODUTOS</h4>
-            </div>
-            <div class="mt-3 d-flex justify-content-center">
-              <h5>{{ qtdProdutos }}</h5>
-            </div>
-          </div>
-          <div class="resultados flex-column col-6">
-            <div class="text-center">
-              <h4>TICKET MÉDIO</h4>
-            </div>
-            <div class="mt-3 d-flex justify-content-center">
-              <h5>{{ mascaraValor(venda / pedidos.length) }}</h5>
-            </div>
-          </div>
+
         </div>
     </div>
 </section>
