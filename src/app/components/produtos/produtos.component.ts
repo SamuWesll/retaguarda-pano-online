@@ -227,7 +227,7 @@ export class ProdutosComponent implements OnInit {
   onUpload() {
     this.uploadService.onUpload(this.selectedFile).subscribe(
       () => {
-        this.imagem = `http://localhost:4200/../../../assets/img/produtos/${this.selectedFile.name}`
+        this.imagem = `http://localhost:4200/../../../assets/img/produtos/Upload/${this.selectedFile.name}`
       }
     )
   }

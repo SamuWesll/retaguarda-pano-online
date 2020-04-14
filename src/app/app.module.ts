@@ -6,7 +6,6 @@ import { ModalDirective, MDBBootstrapModule } from 'angular-bootstrap-md';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -17,6 +16,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PageAdminComponent } from './components/page-admin/page-admin.component';
 import { LoginComponent } from './components/login/login.component';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,8 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule.forRoot([])
+    RouterModule.forRoot([]),
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent],
