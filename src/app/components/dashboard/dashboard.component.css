@@ -71,3 +71,12 @@ header h3 {
     font-size: 24px;
     font-weight: bolder;
 }
+
+#TtlCliente {
+    font-size: 30px;
+}
+
+.textTtlCliente {
+    font-size: 12px;
+    font-style: italic;
+}

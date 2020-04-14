@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   
   venda: number = 0;
   qtdProdutos: number = 0;
+  qtdCliente: any;
 
   constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private pedidoService: PedidosService) {
     this.fromDate = calendar.getNext(calendar.getToday(), 'd', -5);
@@ -77,8 +78,19 @@ export class DashboardComponent implements OnInit {
                 this.qtdProdutos += itensProd.qtdProduto;
              })
           });
+          this.qtdCliente = 0;
+          let contadorCliente = this.pedidos.reduce((acc, current) => {
+            const x = acc.find(item => item.tbClienteIdCliente === current.tbClienteIdCliente);
+            if(!x) {
+              return acc.concat([current]);
+            } else {
+              return acc;
+            }
+          }, []);
+          this.qtdCliente = contadorCliente.length;
           console.log(this.pedidos)
           console.log(this.qtdProdutos)
+          console.log(this.qtdCliente)
         }
       },
       ERROR => {
@@ -94,6 +106,13 @@ export class DashboardComponent implements OnInit {
   mascaraValor(valor: number) {
     return Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor)
   };
+
+  menorDez(n: number) {
+    if(n < 10) {
+      return "0" + n;
+    }
+    return n + "";
+  }
 
   dataString(date: NgbDate): string {
 
