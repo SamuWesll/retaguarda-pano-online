@@ -34,6 +34,10 @@ export class DashboardComponent implements OnInit {
       quantidade: 0,
     },
     {
+      ds_status: "Cancelado",
+      quantidade: 0,
+    },
+    {
       ds_status: "Produto em separação",
       quantidade: 0,
     },
@@ -105,6 +109,7 @@ export class DashboardComponent implements OnInit {
           this.status[2].quantidade = 0;
           this.status[3].quantidade = 0;
           this.status[4].quantidade = 0;
+          this.status[5].quantidade = 0;
           this.pedidos.forEach(pedido => {
              this.venda += pedido.totalCompra + pedido.valorFrete
              pedido['itensPedido'].forEach(itensProd => {

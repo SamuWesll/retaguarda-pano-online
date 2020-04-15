@@ -20,7 +20,7 @@ export class PageAdminComponent implements OnInit {
 
   reciverRealizandoLogin(alterarLogin) {
     // this.login = alterarLogin;
-    if(alterarLogin.user == "admin" && alterarLogin.senha == "admin") {
+    if(alterarLogin.user == "admin" &&  alterarLogin.senha == "admin") {
       this.login.logado = true;
     } else {
       alert("Login e senha invalida")
