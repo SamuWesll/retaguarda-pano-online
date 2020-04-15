@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class PageAdminComponent implements OnInit {
 
   login = {
-    logado: true
+    logado: false
   }
 
   constructor() {
@@ -19,8 +19,13 @@ export class PageAdminComponent implements OnInit {
   }
 
   reciverRealizandoLogin(alterarLogin) {
-    this.login = alterarLogin;
-    console.log('Login do filho', alterarLogin);
+    // this.login = alterarLogin;
+    if(alterarLogin.user == "admin" && alterarLogin.senha == "admin") {
+      this.login.logado = true;
+    } else {
+      alert("Login e senha invalida")
+    }
+    
   }
 
 }

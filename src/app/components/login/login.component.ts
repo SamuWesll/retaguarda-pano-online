@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     console.log(this.receberLogin);
   }
 
-  realizandoLogin() {
-    console.log(this.alterarLogin.emit({logado: true}))
+  realizandoLogin(login, senha) {
+    this.alterarLogin.emit({logado: true, user: login, senha: senha});
   }
 }
