@@ -23,11 +23,33 @@ export class DashboardComponent implements OnInit {
   qtdProdutos: number = 0;
   qtdCliente: any;
 
+  // status
+  status = [
+    {
+      ds_status: "Aguardando confirmação de pagamento",
+      quantidade: 0,
+    },
+    {
+      ds_status: "Pagamento confirmado",
+      quantidade: 0,
+    },
+    {
+      ds_status: "Produto em separação",
+      quantidade: 0,
+    },
+    {
+      ds_status: "Produto enviado",
+      quantidade: 0,
+    },
+    {
+      ds_status: "Produto entregue",
+      quantidade: 0,
+    },
+];
+
   constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private pedidoService: PedidosService) {
     this.fromDate = calendar.getNext(calendar.getToday(), 'd', -5);
     this.toDate = calendar.getToday();
-    // this.fromDate = calendar.getToday();
-    // this.toDate = calendar.getNext(calendar.getToday(), 'd', 0);
   }
 
   // Inicio dos metodos do calendario
@@ -62,9 +84,15 @@ export class DashboardComponent implements OnInit {
   }
   // Fim dos metodos do calendario
 
+  contadorStatus(ped) {
+      for(let i = 0; i < this.status.length; i++) {
+        if(ped.status == this.status[i].ds_status) {
+          return this.status[i].quantidade += 1;
+        }
+      }
+  }
+
   getPedidoPeriodo(inicio: string, fim: string) {
-    // let inicio: string = "2020-04-01"
-    // let fim: string = "2020-04-09"
 
     this.pedidoService.getPedidosPeriodo(inicio, fim).subscribe(
       data => {
@@ -72,11 +100,17 @@ export class DashboardComponent implements OnInit {
           this.pedidos = data;
           this.venda = 0;
           this.qtdProdutos = 0;
+          this.status[0].quantidade = 0;
+          this.status[1].quantidade = 0;
+          this.status[2].quantidade = 0;
+          this.status[3].quantidade = 0;
+          this.status[4].quantidade = 0;
           this.pedidos.forEach(pedido => {
              this.venda += pedido.totalCompra + pedido.valorFrete
              pedido['itensPedido'].forEach(itensProd => {
                 this.qtdProdutos += itensProd.qtdProduto;
              })
+             this.contadorStatus(pedido);
           });
           this.qtdCliente = 0;
           let contadorCliente = this.pedidos.reduce((acc, current) => {
@@ -88,9 +122,8 @@ export class DashboardComponent implements OnInit {
             }
           }, []);
           this.qtdCliente = contadorCliente.length;
-          console.log(this.pedidos)
-          console.log(this.qtdProdutos)
-          console.log(this.qtdCliente)
+          console.log(this.pedidos);
+          console.log(this.status)
         }
       },
       ERROR => {

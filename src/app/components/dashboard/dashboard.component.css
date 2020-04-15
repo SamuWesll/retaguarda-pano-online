@@ -80,3 +80,25 @@ header h3 {
     font-size: 12px;
     font-style: italic;
 }
+
+.status {
+    
+}
+
+.status .tituloStatus {
+    font-style: italic;
+}
+
+#ttTabelasStatus {
+    background-color: rgb(227, 227, 233);
+}
+
+#ttTabelasStatus th {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+#linhasTabelas th {
+    font-size: 14px;
+    font-weight: 400;
+}
