@@ -24,10 +24,6 @@ header h3 {
     font-style: italic;
 }
 
-#data input {
-    /* font-size: 13px; */
-}
-
 /* estilização do Range selection in a popup */
 .form-group.hidden {
     width: 0;
@@ -79,10 +75,6 @@ header h3 {
 .textTtlCliente {
     font-size: 12px;
     font-style: italic;
-}
-
-.status {
-    
 }
 
 .status .tituloStatus {
