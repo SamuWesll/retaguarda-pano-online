@@ -6,6 +6,7 @@ import { formatDate } from '@angular/common';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { EnderecoService } from 'src/app/services/endereco.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
+import { CategoriaService } from 'src/app/services/categoria.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -22,8 +23,9 @@ export class PedidosComponent implements OnInit {
   faCalendar = faCalendar;
 
   listaPedidos: any = [];
+  listaTodosPedidos: any = [];
   cliente = {};
-  endereco = {};
+  endereco;
 
   // status
   status = [
@@ -64,6 +66,14 @@ export class PedidosComponent implements OnInit {
     pedido: [] = [],
   };
 
+  listaCategoria = [];
+
+  paginas: any[] = [];
+  pageSelect = {
+    inicio: 0,
+    fim: 14,
+  }
+
   constructor(
     private calendar: NgbCalendar, 
     public formatter: NgbDateParserFormatter, 
@@ -71,6 +81,7 @@ export class PedidosComponent implements OnInit {
     private clienteService: ClienteService, 
     private enderecoService: EnderecoService,
     private produtoService: ProdutosService,
+    private categoriaService: CategoriaService,
     ) 
       {
         this.fromDate = calendar.getNext(calendar.getToday(), 'd', -10);
@@ -109,6 +120,31 @@ export class PedidosComponent implements OnInit {
   }
   // Fim dos metodos do calendario
 
+  selecionarPagina(page) {
+    this.pageSelect.inicio = page['inicio'];
+    this.pageSelect.fim = page['fim'];
+    for(let i = 0; i < this.paginas.length; i++) {
+      if(this.paginas[i].page == page.page) {
+        this.paginas[i].selected = true;
+      } else {
+        this.paginas[i].selected = false;
+      }
+    }
+  }
+
+  pesquisar(texto: string) {
+    let pedidoArray = [];
+
+    this.listaTodosPedidos.forEach(ped => {
+      let idString = ped.idPedido + "";
+      if(idString.toLowerCase().includes(texto.toLowerCase()) || ped.status.toLowerCase().includes(texto.toLowerCase())) {
+        pedidoArray.push(ped)
+      }
+    });
+
+    this.listaPedidos = pedidoArray;
+  }
+
   dataString(date: NgbDate): string {
 
     function menorZero(n) {
@@ -131,6 +167,7 @@ export class PedidosComponent implements OnInit {
       data => {
         if(data[0].idPedido) {
           this.listaPedidos = data;
+          this.listaTodosPedidos = data;
         }
       },
       ERROR => {
@@ -184,6 +221,7 @@ export class PedidosComponent implements OnInit {
         console.log(pedido);
       }
     )
+    
   }
 
   calcularIdade(data) {
@@ -242,8 +280,29 @@ export class PedidosComponent implements OnInit {
     })
   }
 
+  getNomeDaCategoria(id: number) {
+    let nomeCategoria = "";
+    for(let i = 0; i < this.listaCategoria.length; i++) {
+      if(this.listaCategoria[i]['idCategoria'] == id) {
+        nomeCategoria = this.listaCategoria[i]['descricao']
+      }
+    }
+    return nomeCategoria
+  }
+
+  getCategoria() {
+    this.categoriaService.getLista().subscribe(
+      categoria => {
+        for(let i = 0; i< categoria['length']; i++) {
+          this.listaCategoria.push(categoria[i]);
+        }
+      }
+    )
+  }
+
   ngOnInit(): void {
     this.getPedidoPeriodo(this.dataString(this.fromDate), this.dataString(this.toDate));
+    this.getCategoria();
   }
 
 }

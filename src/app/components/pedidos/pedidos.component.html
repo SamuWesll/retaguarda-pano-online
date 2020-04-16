@@ -13,7 +13,7 @@
             <label class="mt-1 mr-3">Pesquisar pedido: </label>
 
             <div class="input-group col-3">
-                <input type="text" class="form-control" placeholder="id do pedido" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input type="text" class="form-control" (keyup)="pesquisar(textoPesquisa.value)" ng-model="pesquisaInput" #textoPesquisa placeholder="id do pedido" aria-label="Recipient's username" aria-describedby="button-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-dark" type="button" id="pesquisa">
                         <img src="../../../assets/img/search.png" height="18px" alt="">
@@ -92,7 +92,8 @@
                         <th>editar</th>
                     </tr>
                     <tbody id="pedidoL">
-                        <tr scope="row" *ngFor="let pedido of listaPedidos | slice: 0:15; index as i" (click)="selecionandoPedido(pedido)">
+                        <tr scope="row" *ngFor="let pedido of listaPedidos index as i" (click)="selecionandoPedido(pedido)">
+                        <!-- <tr scope="row" *ngFor="let pedido of listaPedidos | slice: 0:14; index as i" (click)="selecionandoPedido(pedido)"> -->
                             <th class="text-center" >{{ pedido.idPedido }}</th>
                             <th class="text-center" [class.cancelado]="pedido.status == 'Cancelado' " >{{ pedido.status }}</th>
                             <th class="text-center" >{{ formatarData(pedido.dataPedido) }}</th>
@@ -175,7 +176,7 @@
                                                 <img src="{{ item.imagem }}" height="60px" alt="">
                                             </th>
                                             <th class="text-center">{{ item.tituloProduto }}</th>
-                                            <th class="text-center">Barra</th>
+                                            <th class="text-center">{{ getNomeDaCategoria(item.categoria) }}</th>
                                             <th class="text-center">{{ item.qtdProduto }}</th>
                                             <th class="text-center">{{ mascaraValor(item.valorProduto) }}</th>
                                         </tr>

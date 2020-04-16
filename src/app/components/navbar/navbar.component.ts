@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
     { id:1, title: 'Dashboard', fragment: 'dashboard', imgCheck: '../../../assets/img/dashboard_check.png', img: '../../../assets/img/dashboard.png', selected:false},
     { id:2, title: 'Produtos', fragment: 'produtos', imgCheck:"../../../assets/img/inventory_check.png", img: '../../../assets/img/trolley.png', selected:false },
     { id:4, title: 'Pedidos', fragment: 'pedidos', imgCheck: '../../../assets/img/box_check.png', img: '../../../assets/img/box.png', selected:false },
-    { id:3, title: 'Clientes', fragment: 'clientes', imgCheck: '../../../assets/img/person_check.png', img: '../../../assets/img/person.png', selected:false },
+    // { id:3, title: 'Clientes', fragment: 'clientes', imgCheck: '../../../assets/img/person_check.png', img: '../../../assets/img/person.png', selected:false },
   ];
 
   navbarAjustado: boolean = true
