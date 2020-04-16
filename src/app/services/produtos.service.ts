@@ -18,6 +18,13 @@ export class ProdutosService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
+  getId(id) {
+    let produto;
+    const URL = `http://localhost:8080/meupanoonline/produto?idProduto=${id}`;
+    produto = this.http.get(URL, this.httpOptions);
+    return produto;
+  }
+  
   getLista() {
     let url: string = "http://localhost:8080/meupanoonline/produto/lista";
     let buscarProdudos = this.http.get(url);

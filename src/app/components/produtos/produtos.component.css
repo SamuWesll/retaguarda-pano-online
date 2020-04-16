@@ -1,3 +1,20 @@
+header {
+    padding: 20px 15px 10px 15px;
+    font-family: 'Poppins', sans-serif;
+    width: 85vw;
+}
+
+header h1 {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+header h3 {
+    margin-top: 20px;
+    font-size: 16px;
+    font-style: italic;
+}
+
 #tituloTabelas th {
     padding: 5px 30px;
     background-color: brown;
