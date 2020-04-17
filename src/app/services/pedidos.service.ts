@@ -45,8 +45,8 @@ export class PedidosService {
       formaPgto: pedido.formaPgto,
       status: pedido.status,
       dataPedido: pedido.dataPedido,
-      tbClienteIdCliente: pedido.tbClienteIdCliente,
-      tbEnderecoIdEndereco: pedido.tbEnderecoIdEndereco,
+      tb_cliente_id_cliente: pedido.tb_cliente_id_cliente,
+      tb_endereco_id_endereco: pedido.tb_endereco_id_endereco,
       itensPedido: pedido.itensPedido
     }
     pedidoAlterado = this.http.put(URL, bodyPedido, this.httpOptions);
