@@ -1,6 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModule, NgbNav, NgbNavItem, NgbNavLink } from '@ng-bootstrap/ng-bootstrap'
 import { ActivatedRoute } from '@angular/router';
+import { ModalDirective } from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-navbar',
@@ -8,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild(ModalDirective) modal: ModalDirective;
 
   links = [
     { id:1, title: 'Dashboard', fragment: 'dashboard', imgCheck: '../../../assets/img/dashboard_check.png', img: '../../../assets/img/dashboard.png', selected:false},

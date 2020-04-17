@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit {
           });
           this.qtdCliente = 0;
           let contadorCliente = this.pedidos.reduce((acc, current) => {
-            const x = acc.find(item => item.tbClienteIdCliente === current.tbClienteIdCliente);
+            const x = acc.find(item => item.tb_cliente_id_cliente === current.tb_cliente_id_cliente);
             if(!x) {
               return acc.concat([current]);
             } else {

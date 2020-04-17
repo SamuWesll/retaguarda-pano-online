@@ -60,3 +60,7 @@ header p {
 .ajustarNavbar {
     cursor: pointer;
 }
+
+#logout {
+    cursor: pointer;
+}
