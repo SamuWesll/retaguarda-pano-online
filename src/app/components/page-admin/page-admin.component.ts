@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class PageAdminComponent implements OnInit {
 
   login = {
-    logado: true
+    logado: false
   }
 
   constructor() {
