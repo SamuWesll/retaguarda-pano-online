@@ -63,6 +63,11 @@ table {
     cursor: pointer;
 }
 
+.status:hover {
+    font-weight: bold;
+    color: darkblue;
+}
+
 #pedidoL tr:hover {
     background-color: rgba(224, 223, 223, 0.568);
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbDateParserFormatter, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { PedidosService } from 'src/app/services/pedidos.service';
@@ -7,6 +7,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { EnderecoService } from 'src/app/services/endereco.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
+import { ModalDirective } from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-pedidos',
@@ -14,6 +15,7 @@ import { CategoriaService } from 'src/app/services/categoria.service';
   styleUrls: ['./pedidos.component.css']
 })
 export class PedidosComponent implements OnInit {
+  @ViewChild(ModalDirective) modal: ModalDirective;
 
   hoveredDate: NgbDate | null = null;
 
@@ -32,12 +34,12 @@ export class PedidosComponent implements OnInit {
     {
       ds_status: "Aguardando confirmação de pagamento",
       quantidade: 0,
-      acao: "liberar pedido",
+      acao: "Processar pedido",
     },
     {
       ds_status: "Pagamento confirmado",
       quantidade: 0,
-      acao: "liberar pedido",
+      acao: "Processar pedido",
     },
     {
       ds_status: "Cancelado",
@@ -47,12 +49,12 @@ export class PedidosComponent implements OnInit {
     {
       ds_status: "Produto em separação",
       quantidade: 0,
-      acao: "faturar",
+      acao: "Faturar",
     },
     {
       ds_status: "Produto enviado",
       quantidade: 0,
-      acao: "processando",
+      acao: "Em trânsito",
     },
     {
       ds_status: "Produto entregue",
@@ -218,7 +220,8 @@ export class PedidosComponent implements OnInit {
         this.cliente = body;
         this.capturaEndereco();
         this.detalheProduto();
-        console.log(pedido);
+        // console.log(pedido);
+        // console.log(this.pedidoSelecionado['pedido']);
       }
     )
     
@@ -276,7 +279,7 @@ export class PedidosComponent implements OnInit {
         }
       )
       
-      console.log(this.pedidoSelecionado['pedido'][0].itensPedido)
+      // console.log(this.pedidoSelecionado['pedido'][0].itensPedido)
     })
   }
 
@@ -298,6 +301,23 @@ export class PedidosComponent implements OnInit {
         }
       }
     )
+  }
+
+  btnStatus() {
+    alert("funcionou")
+  }
+
+  putStatus(status: string) {
+    this.pedidoSelecionado['pedido'][0].status = status;
+    // console.log(this.pedidoSelecionado['pedido'][0])
+
+    this.pedidoService.putPedidoStatus(this.pedidoSelecionado['pedido'][0]).subscribe(
+      pedidoAlterado => {
+        console.log(pedidoAlterado);
+      }
+    )
+
+    this.modal.hide();
   }
 
   ngOnInit(): void {

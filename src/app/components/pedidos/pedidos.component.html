@@ -97,7 +97,19 @@
                             <th class="text-center" >{{ pedido.idPedido }}</th>
                             <th class="text-center" [class.cancelado]="pedido.status == 'Cancelado' " >{{ pedido.status }}</th>
                             <th class="text-center" >{{ formatarData(pedido.dataPedido) }}</th>
-                            <th class="text-center" >{{ acaoStatus(pedido.status) }}</th>
+                            <div class="d-flex justify-content-center" *ngIf="pedido.status == 'Cancelado'">
+                                <th class="col-12 text-center status">{{ acaoStatus(pedido.status) }}</th>
+                            </div>
+                            <div class="d-flex justify-content-center" *ngIf="pedido.status == 'Aguardando confirmação de pagamento'">
+                                <th class="col-12 text-center status" (click)="modalLiberarPagamento.show()">{{ acaoStatus(pedido.status) }}</th>
+                            </div>
+                            <div class="d-flex justify-content-center" *ngIf="pedido.status == 'Pagamento confirmado'">
+                                <th class="col-12 text-center status" (click)="modalLiberSeparacao.show()">{{ acaoStatus(pedido.status) }}</th>
+                            </div>
+                            <div class="d-flex justify-content-center" *ngIf="pedido.status == 'Produto em separação'">
+                                <th class="col-12 text-center status">{{ acaoStatus(pedido.status) }}</th>
+                            </div>
+                            
                         </tr>
                     </tbody>
                 </table>
@@ -193,3 +205,81 @@
     </div>
 
 </section>
+
+<!-- inicio - Modal (status-Aguardando confirmação de pagamento -->
+<div
+  mdbModal
+  #modalLiberarPagamento="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  style="overflow-y: auto"
+>
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title text-white w-100">Confirmar pagamento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalLiberarPagamento.hide()">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="md-form d-flex justify-content-center text-center">
+                    <h5>Realmente deseja avança o pedido para pagamento aprovado?</h5>
+                </div>
+                
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="submit" class="btn btn-outline-success rounded mr-2" id="btnEnviarEmail" (click)="putStatus('Pagamento confirmado')">Confirmar</button>
+                    <button type="submit" class="btn btn-outline-warning rounded mr-2 ml-2" id="btnEnviarEmail" (click)="putStatus('Cancelado')">Cancelar Pedido</button>
+                    <button type="button" class="btn btn-outline-danger rounded ml-2" (click)="modalLiberarPagamento.hide()">Voltar</button>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- fim - Modal (status-Aguardando confirmação de pagamento -->
+
+<!-- inicio - Modal (status-Pagamento Confirmado -->
+<div
+  mdbModal
+  #modalLiberSeparacao="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  style="overflow-y: auto"
+>
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title text-white w-100">Disponibilizar para separação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalLiberSeparacao.hide()">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="md-form d-flex justify-content-center text-center">
+                    <h5>Realmente deseja enviar o pedido para separação de mercadoria?</h5>
+                </div>
+                
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="submit" class="btn btn-outline-success rounded mr-2" id="btnEnviarEmail" (click)="putStatus('Produto em separação')">Confirmar</button>
+                    <button type="submit" class="btn btn-outline-warning rounded mr-2 ml-2" id="btnEnviarEmail" (click)="putStatus('Cancelado')">Cancelar Pedido</button>
+                    <button type="button" class="btn btn-outline-danger rounded ml-2" (click)="modalLiberSeparacao.hide()">Voltar</button>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- fim - Modal (status-Pagamento Confirmado -->

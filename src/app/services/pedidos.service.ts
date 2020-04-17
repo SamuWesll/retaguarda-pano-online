@@ -36,4 +36,21 @@ export class PedidosService {
     // )
   }
 
+  putPedidoStatus(pedido) {
+    let pedidoAlterado;
+    const URL = `http://localhost:8080/meupanoonline/pedido?idPedido=${pedido.idPedido}`
+    let bodyPedido = {
+      valorFrete: pedido.valorFrete,
+      totalCompra: pedido.totalCompra,
+      formaPgto: pedido.formaPgto,
+      status: pedido.status,
+      dataPedido: pedido.dataPedido,
+      tbClienteIdCliente: pedido.tbClienteIdCliente,
+      tbEnderecoIdEndereco: pedido.tbEnderecoIdEndereco,
+      itensPedido: pedido.itensPedido
+    }
+    pedidoAlterado = this.http.put(URL, bodyPedido, this.httpOptions);
+    return pedidoAlterado;
+  }
+
 }
