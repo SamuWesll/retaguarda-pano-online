@@ -171,6 +171,7 @@ export class PedidosComponent implements OnInit {
           this.listaPedidos = data;
           this.listaTodosPedidos = data;
         }
+        console.log(this.listaPedidos)
       },
       ERROR => {
         if(ERROR['error'] == "Não existem pedidos cadastrados nesse período") {
@@ -204,8 +205,9 @@ export class PedidosComponent implements OnInit {
     this.pedidoSelecionado['pedido'] = [];
     this.pedidoSelecionado['selecionado'] = true;
     this.pedidoSelecionado['pedido'].push(pedido);
+    console.log(this.pedidoSelecionado['pedido'][0])
     this.endereco = {};
-    this.clienteService.getClienteId(this.pedidoSelecionado['pedido'][0].tbClienteIdCliente).subscribe(
+    this.clienteService.getClienteId(this.pedidoSelecionado['pedido'][0].tb_cliente_id_cliente).subscribe(
       data => {
         let body = {
           cpf: data.cpf,
@@ -244,10 +246,10 @@ export class PedidosComponent implements OnInit {
   }
 
   capturaEndereco() {
-    if(this.pedidoSelecionado['pedido'][0].tbEnderecoIdEndereco == null) {
+    if(this.pedidoSelecionado['pedido'][0].tb_endereco_id_endereco == null) {
       return;
     } else {
-      this.enderecoService.getEnderecoId(this.pedidoSelecionado['pedido'][0].tbEnderecoIdEndereco).subscribe(
+      this.enderecoService.getEnderecoId(this.pedidoSelecionado['pedido'][0].tb_endereco_id_endereco).subscribe(
         end => {
           this.endereco = end;
         }
